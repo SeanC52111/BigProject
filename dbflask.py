@@ -80,11 +80,16 @@ def show():
         cur=conn.cursor()
         cur.execute('select * from member')
         data=cur.fetchall()
-        response = "<html>\n"
+        response = "<html>\n\n"
+        response += "<head>"
         response += "<title>Data in the db</title>\n"
+        response += "<link href='http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css' rel='stylesheet'>\n"
+        response += "<script src='http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js'></script>"
+        response += "<script src='http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js'></script>"
+        response += "</head>\n"
         response += "<body>\n"
         response += "<a href='./'>add member</a>"
-        response += "<table>\n"
+        response += "<table class='table table-bordered table-striped table-hover table-condenced'>\n"
         for i in range(len(data)):
             response += "<tr>\n"
             for j in range(len(data[0])):
