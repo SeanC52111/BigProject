@@ -8,6 +8,7 @@ from wtforms.validators import Required
 from wtforms.validators import Optional
 import pymysql
 
+
 choices = [
       ('Man','Man'),
       ('Woman','Woman'),
