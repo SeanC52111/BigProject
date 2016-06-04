@@ -88,12 +88,10 @@ def show():
         response += "<script src='http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js'></script>"
         response += "</head>\n"
         response += "<body>\n"
-<<<<<<< HEAD
         response += "<div class='page-header'><h1>Show data</h1></div>"
         response += "<a type='button' class='btn btn-primary' href='./'>add member</a>"
-=======
         response += "<a href='./'>add member</a>"
->>>>>>> 4b6234764b54a7bbe99ec57327477a21ef47dac0
+
         response += "<table class='table table-bordered table-striped table-hover table-condenced'>\n"
         for i in range(len(data)):
             response += "<tr>\n"
