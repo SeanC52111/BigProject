@@ -90,7 +90,7 @@ def show():
         response += "<body>\n"
         response += "<div class='page-header'><h1>Show data</h1></div>"
         response += "<a type='button' class='btn btn-primary' href='./'>add member</a>"
-        response += "<a href='./'>add member</a>"
+        
 
         response += "<table class='table table-bordered table-striped table-hover table-condenced'>\n"
         for i in range(len(data)):
