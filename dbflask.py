@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,redirect,url_for
 from flask.ext.wtf import Form
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.script import Manager
@@ -18,7 +18,7 @@ class NameForm(Form):
     name = StringField('name',validators=[Optional()])
     school = StringField('school',validators=[Optional()]) 
     major = StringField('major',validators=[Optional()])
-    sex = RadioField('sex',validators=[Required()],choices=choices)
+    sex = RadioField('sex',validators=[Optional()],choices=choices)
     registdate = StringField('registdate',validators=[Optional()])
     lastdate = StringField('lastdate',validators=[Optional()])
     submit = SubmitField('submit')
@@ -88,13 +88,15 @@ def show():
         response += "<script src='http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js'></script>"
         response += "</head>\n"
         response += "<body>\n"
-        response += "<a href='./'>add member</a>"
+        response += "<div class='page-header'><h1>Show data</h1></div>"
+        response += "<a type='button' class='btn btn-primary' href='./'>add member</a>"
         response += "<table class='table table-bordered table-striped table-hover table-condenced'>\n"
         for i in range(len(data)):
             response += "<tr>\n"
             for j in range(len(data[0])):
                 response += "<td>"+data[i][j]+"</td>\n"
             response += "<td><a href='./edit?uid="+data[i][0]+"'>  edit</a></td>\n"
+            response += "<td><a href='./delete?uid="+data[i][0]+"'>  delete</a></td>\n"
             response += "</tr><br>\n"
         response += "</table>\n"
         response += "</html>"
@@ -151,6 +153,19 @@ def edit():
         except Exception:print("except")
     return render_template('index.html',form=nameForm)
     
+
+@app.route('/delete',methods=['GET','POST'])
+def delete():
+    getuid=request.args.get('uid',)
+    try:
+        conn = pymysql.connect(host='localhost',user='root',password='1',db='test',charset='utf8')
+        cur=conn.cursor()
+        cur.execute("delete from member where uid='"+getuid+"'")
+        conn.commit()
+        cur.close()
+        conn.close()
+    except Exception:print("except")
+    return redirect(url_for('show',status='success',message='delete success'))
 
 if __name__=='__main__':
     app.run(debug=True)
